@@ -32,11 +32,11 @@ final class GildedRose
                         break;
 
                     case 'Backstage passes to a TAFKAL80ETC concert':
-                        if ($item->sell_in > 10) {
+                        if ($item->sell_in >= 10) {
                             $item->quality += 1;
-                        } elseif ($item->sell_in > 5) {
+                        } elseif ($item->sell_in >= 5) {
                             $item->quality += 2;
-                        } elseif ($item->sell_in > 0) {
+                        } elseif ($item->sell_in >= 0) {
                             $item->quality += 3;
                         } else {
                             $item->quality = 0;
