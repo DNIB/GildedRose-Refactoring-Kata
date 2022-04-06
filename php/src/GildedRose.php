@@ -24,32 +24,29 @@ final class GildedRose
                     return $item;
                 }
 
-                if ($item->name === 'Aged Brie') {
-                    $item->sell_in -= 1;
-
-                    $item->quality += ($item->sell_in >= 0) ? 1 : 2;
-                    $item->quality = ($item->quality <= 50) ? $item->quality : 50;
-                    return $item;
-                }
-
-                if ($item->name === 'Backstage passes to a TAFKAL80ETC concert') {
-                    $item->sell_in -= 1;
-
-                    if ($item->sell_in > 10) {
-                        $item->quality += 1;
-                    } elseif ($item->sell_in > 5) {
-                        $item->quality += 2;
-                    } elseif ($item->sell_in > 0) {
-                        $item->quality += 3;
-                    } else {
-                        $item->quality = 0;
-                    }
-                    $item->quality = ($item->quality <= 50) ? $item->quality : 50;
-                    return $item;
-                }
-
                 $item->sell_in -= 1;
-                $item->quality -= ($item->sell_in < 0) ? 2 : 1;
+
+                switch ($item->name) {
+                    case 'Aged Brie':
+                        $item->quality += ($item->sell_in >= 0) ? 1 : 2;
+                        break;
+
+                    case 'Backstage passes to a TAFKAL80ETC concert':
+                        if ($item->sell_in > 10) {
+                            $item->quality += 1;
+                        } elseif ($item->sell_in > 5) {
+                            $item->quality += 2;
+                        } elseif ($item->sell_in > 0) {
+                            $item->quality += 3;
+                        } else {
+                            $item->quality = 0;
+                        }
+                        break;
+                    
+                    default:
+                        $item->quality -= ($item->sell_in < 0) ? 2 : 1;
+                        break;
+                }
 
                 if ($item->quality > 50) {
                     $item->quality = 50;
