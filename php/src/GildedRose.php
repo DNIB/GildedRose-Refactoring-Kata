@@ -43,6 +43,10 @@ final class GildedRose
                         }
                         break;
                     
+                    case 'Conjured Mana Cake':
+                        $item->quality -= ($item->sell_in < 0) ? 4 : 2;
+                        break;
+                    
                     default:
                         $item->quality -= ($item->sell_in < 0) ? 2 : 1;
                         break;
